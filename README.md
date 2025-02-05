@@ -1,2 +1,3 @@
-# NodeJSTemplate
-NodeJS Application Template
+# Demo NodeJS Application
+
+NodeJS Application created from the template
