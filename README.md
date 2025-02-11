@@ -1,3 +1,3 @@
 # Demo NodeJS Application
 
-NodeJS Application created from the template
+NodeJS Application created from NodeJS template
