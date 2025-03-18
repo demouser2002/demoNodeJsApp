@@ -32,3 +32,4 @@ jobs:
     - run: git version
     - run: git log
     - run: gh version
+    - run: gh api repos/demouser2002/demoNodeJSApp/issues
