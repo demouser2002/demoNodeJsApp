@@ -30,7 +30,4 @@ jobs:
 #    - run: npm run build --if-present
 #    - run: npm test
     - run: git version
-    - run: sudo apt-get update
-    - run: sudo apt-get install git-all
-    - run: git version
     - run: git log
