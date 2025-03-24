@@ -36,3 +36,43 @@ jobs:
     - run: git log
     - run: gh version
     - run: gh api repos/demouser2002/demoNodeJSApp/issues
+    - run: gh api graphql -F owner='{owner}' -F name='{repo}' -f query='
+            query {   defaultBranchRef {
+            repository(owner:$owner, name:$name ) { {
+            defaultBranchRef {y(since:"2025-01-01T01:01:00", first:100) {
+                target {    totalCount
+                    ... on Commit {
+                        history(since:"2025-01-01T01:01:00", first:100) {
+                            totalCountons
+                            nodes {hor {
+                                additions
+                                deletions{
+                                author {login
+                                    emaild
+                                    user {me
+                                        login
+                                        id
+                                        name
+                                    }ge
+                                }id
+                                idsNextPagesIfAvailable
+                                message
+                                oid
+                                parents(first:100) {
+                                    nodes {
+                                        oid
+                                    }
+                                }
+                                authoredDate
+                                changedFilesIfAvailable
+                                commitUrl
+                            }
+                            pageInfo {
+                                endCursor
+                                hasNextPage
+                            }
+                        }
+                    }
+                }
+            }
+        }}'
