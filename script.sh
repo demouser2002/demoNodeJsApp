@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-
-#gh auth login -h github.com -p https --with-token < /Users/kavithasureshkumar/Documents/GitHub_Demo/token.txt
-
 #listing all prs
 
 gh pr list
@@ -10,7 +7,6 @@ gh pr list
 #listing all issues
 
 gh issue list
-
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -f query='
   query($name: String!, $owner: String!){
