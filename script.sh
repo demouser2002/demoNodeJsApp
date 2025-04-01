@@ -3,7 +3,7 @@
 # Script to fetch GitHub issues using GitHub CLI and GraphQL API with date filtering
 
 # Define the GraphQL query
-read -r -d '' QUERY << EOF
+read -r '' QUERY << EOF
 query(\$startDate: DateTime, \$endDate: DateTime) {
   repository(owner: $owner, name: $repo) {
     issues(first: 10, states: OPEN, filterBy: {since: \$startDate}) {
