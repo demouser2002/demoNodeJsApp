@@ -13,10 +13,10 @@ start_date="2025-01-01T01:01:00Z"
 end_date="2025-03-01T01:01:00Z"
 after="nil"
 
-gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$start_date -F after=$after -f query='
-query issues ($owner: String!, $name: String!, $since: GitTimestamp!, $after: String) {
+gh api graphql -F owner='{owner}' -F name='{repo}' -F start_date=$start_date -F after=$after -f query='
+query issues ($owner: String!, $name: String!, $start_date: GitTimestamp!, $after: String) {
 		repository(owner:$owner, name: $name) {
-			issues(first: 5, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
+			issues(first: 5, filterBy: {since: $start_date}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
 				nodes {
 					id
 					assignees(first: 25) {
