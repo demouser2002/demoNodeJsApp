@@ -17,7 +17,7 @@ after=""
 #hasNextPage=true
 #while [ $hasNextPage ]
 #do
-responseData=gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
+gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
 		repository(owner:$owner, name: $name) {
 			issues(first: 2, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
@@ -72,8 +72,9 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 				}
 			} 
 		}
-	}'
+	}'> issues.json
 
+ responseData=`cat issues.json`
  echo $responseData
 #done
 
