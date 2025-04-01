@@ -11,15 +11,12 @@ gh issue list
 
 start_date="2025-01-01T01:01:00Z"
 end_date="2025-03-01T01:01:00Z"
-since="2025-01-01T01:01:00Z"
+since=$(date +"%Y-%m-%dT%H:%M:%SZ")
 after=""
 
-formattedDateTime=$(date +"%Y-%m-%dT%H:%M:%SZ")
-echo "Current date is " $formattedDateTime
-
-hasNextPage=true
-while [ $hasNextPage ]
-do
+#hasNextPage=true
+#while [ $hasNextPage ]
+#do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
 		repository(owner:$owner, name: $name) {
@@ -73,11 +70,11 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 					endCursor
 					hasNextPage
 				}
-			}
+			} 
 		}
-	}'
+	}' | jq [.[].data.repository.issues.pageInfo.hasNextPage ]
 
-done
+#done
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -F start_date=$start_date -f query='
   query($name: String!, $owner: String!,$start_date: GitTimestamp!){
