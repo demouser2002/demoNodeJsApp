@@ -1,5 +1,5 @@
 
-#!/usr/bin/env bash
+#!/bin/bash
 # Script to fetch GitHub issues using GitHub CLI and GraphQL API with date filtering
 
 # Define the GraphQL query
