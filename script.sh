@@ -11,6 +11,7 @@ gh issue list
 
 start_date="2025-01-01T01:01:00Z"
 end_date="2025-03-01T01:01:00Z"
+since="2025-01-01T01:01:00Z"
 after="nil"
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
