@@ -82,6 +82,11 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  echo $hasNextPage
  after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json | sed 's/"//g'`
  echo $after
+
+ if [ !$hasNextPage ] then
+ 	break
+ fi
+ 
 done
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -F start_date=$start_date -f query='
