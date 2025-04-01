@@ -80,7 +80,7 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 
  hasNextPage=`jq '.data.repository.issues.pageInfo.hasNextPage' issues.json`
  echo $hasNextPage
- after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json`
+ after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json | sed 's/"//g'`
  echo $after
 done
 
