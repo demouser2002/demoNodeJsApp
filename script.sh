@@ -15,9 +15,9 @@ since="2025-01-01T01:01:00Z"
 #since=$(date +"%Y-%m-%dT%H:%M:%SZ")
 after=""
 
-#hasNextPage=true
-#while [ $hasNextPage ]
-#do
+hasNextPage=true
+while [ $hasNextPage ]
+do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
 		repository(owner:$owner, name: $name) {
@@ -77,7 +77,10 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 
  responseData=`cat issues.json`
  echo $responseData
-#done
+
+ hasNextPage=responseData.data.repository.issues.pageInfo.hasNextPage
+ after=responseData.data.repository.issues.pageInfo.endCursor
+done
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -F start_date=$start_date -f query='
   query($name: String!, $owner: String!,$start_date: GitTimestamp!){
