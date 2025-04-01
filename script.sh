@@ -14,11 +14,11 @@ end_date="2025-03-01T01:01:00Z"
 since="2025-01-01T01:01:00Z"
 after=""
 
-var=`date`
-echo "Current date is " $var
+formattedDateTime=$(date +"%Y-%m-%dT%H:%M:%SZ")
+echo "Current date is " $formattedDateTime
 
 hasNextPage=true
-while [ $hasNextPage == true ]
+while [ $hasNextPage ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
