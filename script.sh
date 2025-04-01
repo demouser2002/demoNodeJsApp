@@ -72,7 +72,7 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 				}
 			} 
 		}
-	}' | jq [.[].data.repository.issues.pageInfo.hasNextPage ]
+	}' | jq [.data.repository.issues.pageInfo.hasNextPage ]
 
 #done
 
