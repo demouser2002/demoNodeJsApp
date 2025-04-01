@@ -15,8 +15,8 @@ since="2025-01-01T01:01:00Z"
 #since=$(date +"%Y-%m-%dT%H:%M:%SZ")
 after=""
 
-hasNextPage=true
-while [ $hasNextPage ]
+hasNextPage="true"
+while [ $hasNextPage == "true" ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
@@ -82,10 +82,6 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  echo $hasNextPage
  after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json | sed 's/"//g'`
  echo $after
-
- if [[ !$hasNextPage ]]; then
- 	break
- fi
  
 done
 
