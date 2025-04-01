@@ -11,6 +11,64 @@ gh issue list
 
 start_date="2025-01-01T01:01:00Z"
 end_date="2025-03-01T01:01:00Z"
+after="nil"
+
+gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$start_date -F after=$after -f query='
+query issues ($owner: String!, $name: String!, $since: GitTimestamp!, $after: String) {
+		repository(owner:$owner, name: $name) {
+			issues(first: 5, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
+				nodes {
+					id
+					assignees(first: 25) {
+						totalCount
+						nodes {
+							email
+							id
+							login
+							name
+						}
+					}
+					author {
+						... on User {
+							id
+							name
+							login
+							email
+						}
+					}
+					body
+					closedAt
+					createdAt
+					number
+					state
+					title
+					updatedAt
+					url
+					repository {
+						url
+						databaseId
+					}
+                	authorAssociation
+					labels(first: 25) {
+						totalCount
+						nodes {
+							name
+							id
+							color
+							isDefault
+							url
+						}
+					}
+					locked
+					databaseId
+            	}
+				pageInfo {
+					endCursor
+					hasNextPage
+				}
+			}
+		}
+	}'
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -F start_date=$start_date -f query='
   query($name: String!, $owner: String!,$start_date: GitTimestamp!){
