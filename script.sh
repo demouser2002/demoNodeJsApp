@@ -1,4 +1,36 @@
+
 #!/usr/bin/env bash
+# Script to fetch GitHub issues using GitHub CLI and GraphQL API with date filtering
+
+# Define the GraphQL query
+read -r -d '' QUERY << EOF
+query(\$startDate: DateTime, \$endDate: DateTime) {
+  repository(owner: $owner, name: $repo) {
+    issues(first: 10, states: OPEN, filterBy: {since: \$startDate}) {
+      edges {
+        node {
+          title
+          number
+          url
+          createdAt
+        }
+      }
+    }
+  }
+}
+EOF
+
+# Replace OWNER_NAME and REPO_NAME with your repository details
+#OWNER_NAME="kavithasureshkumar"
+#REPO_NAME="dash_git"
+
+# Define start and end dates
+START_DATE="2023-01-01T00:00:00Z" # Replace with your desired start date
+END_DATE="2023-12-31T23:59:59Z" # Replace with your desired end date
+
+# Execute the GraphQL query using GitHub CLI
+gh api graphql -F query="$QUERY" -F startDate="$START_DATE" -F endDate="$END_DATE" | jq
+
 
 #listing all prs
 
