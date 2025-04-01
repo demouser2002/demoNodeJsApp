@@ -9,8 +9,8 @@ gh pr list
 
 gh issue list
 
-start_date="2025-01-01T01:01:00"
-end_date="2025-03-01T01:01:00"
+start_date="2025-01-01T01:01:00Z"
+end_date="2025-03-01T01:01:00Z"
 
 gh api graphql -F owner='{owner}' -F name='{repo}' -F start_date='{start_date}' -f query='
   query($name: String!, $owner: String!,$start_date: GitTimestamp!){
