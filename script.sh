@@ -78,9 +78,9 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  responseData=`cat issues.json`
  echo $responseData
 
- hasNextPage=$responseData.data.repository.issues.pageInfo.hasNextPage
+ hasNextPage=jq '.data.repository.issues.pageInfo.hasNextPage' issues.json
  echo $hasNextPage
- after=$responseData.data.repository.issues.pageInfo.endCursor
+ after=jq '.data.repository.issues.pageInfo.endCursor' issues.json
  echo $after
 #done
 
