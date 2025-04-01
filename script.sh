@@ -83,7 +83,7 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json | sed 's/"//g'`
  echo $after
 
- if [ !$hasNextPage ] then
+ if [[ !$hasNextPage ]]; then
  	break
  fi
  
