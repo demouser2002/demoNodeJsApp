@@ -8,7 +8,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F states=$states -f query='
 query {
 		repository(owner:{owner}, name:{repo}) 
 		{
-			vulnerabilityAlerts(last:100, states:$states ) 
+			vulnerabilityAlerts(last:100, states:${states[@]} ) 
 			{      
 				pageInfo 
 				{        
