@@ -8,7 +8,7 @@ fi
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
-query="repo:demouser2002/demoNodeJsApp"+" "+"is:pr"+" "+"sort:updated-desc"
+query='repo:demouser2002/demoNodeJsApp is:pr sort:updated-desc'
 echo $query
 
 hasNextPage=true
