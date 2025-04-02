@@ -18,7 +18,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$aft
             defaultBranchRef {
                 target {
                     ... on Commit {
-                        history(since: $start_date, first: 2) {
+                        history(since: $since, first: 2, after: $after) {
                             totalCount
                             nodes {
                                 additions
