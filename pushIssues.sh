@@ -2,7 +2,7 @@
 
 days=30
 #since=$(date +"%Y-%m-%dT%H:%M:%SZ")
-since=$(date -v-"$days"d +"%Y-%m-%dT%H:%M:%S")
+since=$(date -v-$days"d" +"%Y-%m-%dT%H:%M:%S")
 after=""
 
 hasNextPage="true"
