@@ -11,7 +11,7 @@ after=""
 
 echo $GITHUB_REPOSITORY
 
-query="repo:"+$GITHUB_REPOSITORY+" is:pr sort:updated-desc"
+query="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
 echo $query
 
 hasNextPage="true"
