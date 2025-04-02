@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
         GH_TOKEN: ${{ github.token }}
-        DAYS: ${{ DAYS }}
-
     strategy:
       matrix:
         node-version: [18.x]
@@ -36,5 +34,5 @@ jobs:
     - run: gh api repos/demouser2002/demoNodeJSApp/issues
     - run: sh script.sh
     - run: cat commits.json
-    - run: sh pushIssues.sh $DAYS
+    - run: sh pushIssues.sh 90
     - run: cat issues.json
