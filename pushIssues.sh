@@ -1,11 +1,12 @@
 #!/bin/bash
 
-days=30
-#since="2025-01-03T00:00:00Z"
-echo $(date +"%Y-%m-%dT%H:%M:%SZ")
-echo $(date --help)
+if [ -z "$1" ]; then
+    echo "Usage: $0 <number_of_days>"
+    exit 1
+fi
+
+days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
-#since=`date -v-30d +"%Y-%m-%dT%H:%M:%S"`
 after=""
 
 hasNextPage="true"
@@ -72,5 +73,6 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  echo $hasNextPage
  after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json | sed 's/"//g'`
  echo $after 
+ echo `cat issues.json`
 done
 
