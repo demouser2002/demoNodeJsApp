@@ -29,3 +29,5 @@ jobs:
     #- run: cat prs.json
     - run: sh pushAlerts.sh 
     - run: cat alerts.json
+    - run: sh pushBranches.sh 
+    - run: cat branches.json
