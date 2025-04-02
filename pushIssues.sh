@@ -16,6 +16,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$aft
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
 		repository(owner:$owner, name: $name) {
 			issues(first: 2, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
+                                totalCount
 				nodes {
 					id
 					assignees(first: 25) {
