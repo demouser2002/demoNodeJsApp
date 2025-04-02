@@ -25,3 +25,5 @@ jobs:
     - run: cat issues.json
     - run: sh pushCommits.sh $days
     - run: cat commits.json
+    - run: sh pushPRDetails.sh $days
+    - run: cat prs.json
