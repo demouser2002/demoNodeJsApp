@@ -7,7 +7,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}'  -f query='
     query alerts ($owner: String!, $name: String!) {
 		repository(owner:$owner, name:$name) 
 		{
-			vulnerabilityAlerts(last:100, states: [AUTO_DISMISSED,DISMISSED,OPEN,FIXED])
+			vulnerabilityAlerts(last:100)
 			{      
 				pageInfo 
 				{        
@@ -68,6 +68,8 @@ gh api graphql -F owner='{owner}' -F name='{repo}'  -f query='
 			}
 		}
     }' > alerts.json
+
+    echo `cat alerts.json`
 
  hasNextPage=`jq -r '.data.repository.vulnerabilityAlerts.pageInfo.hasNextPage' alerts.json`
  echo $hasNextPage
