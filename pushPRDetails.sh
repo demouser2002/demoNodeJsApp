@@ -9,9 +9,10 @@ days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
 query="repo:" + {$owner} + "/" + {$repo} + " is:pr sort:updated-desc "
+echo $query
 
-hasNextPage="true"
-while [ $hasNextPage = "true"  ]
+hasNextPage=true
+while [ $hasNextPage ]
 do
 gh api graphql -F query=$query -F after=$after -f query='
 query prdetails($query: String!, $after: String) {
