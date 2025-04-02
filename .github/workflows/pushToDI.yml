@@ -35,5 +35,5 @@ jobs:
     - run: gh api repos/demouser2002/demoNodeJSApp/issues
     - run: sh script.sh
     - run: cat commits.json
-    - run: sh pushIssues.sh 30
+    - run: sh pushIssues.sh ${{ DAYS }}
     - run: cat issues.json
