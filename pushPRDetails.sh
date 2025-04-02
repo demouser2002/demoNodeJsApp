@@ -17,7 +17,7 @@ echo $QUERY
 hasNextPage="true"
 while [ $hasNextPage = "true" ]
 do
-gh api graphql -F QUERY=$QUERY -F after=$after -f query='
+gh api graphql -F QUERY="$QUERY" -F after=$after -f query='
 query prdetails($QUERY: String!, $after: String) {
 	    search(
 			first: 100
