@@ -4,7 +4,8 @@
 name: Push to DI
 
 on:
-  workflow_dispatch:
+  push
+  #workflow_dispatch:
 jobs:
  
   build:
