@@ -10,7 +10,7 @@ since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=null
 
 hasNextPage=true
-while [ $hasNextPage == true ]
+while [ $hasNextPage ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
   query($name: String!, $owner: String!,$since: GitTimestamp!, $after: String){
