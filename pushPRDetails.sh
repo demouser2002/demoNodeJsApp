@@ -164,3 +164,4 @@ query prdetails($query: String!, $after: String) {
  after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
  echo $after 
 done
+
