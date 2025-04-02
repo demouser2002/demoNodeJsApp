@@ -11,7 +11,7 @@ after=""
 
 echo $GITHUB_REPOSITORY
 
-query="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
+QUERY="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
 echo $query
 
 hasNextPage="true"
@@ -21,7 +21,7 @@ gh api graphql -F after=$after -f query='
 query prdetails($after: String) {
 	    search(
 			first: 100
-			query: "repo:demouser2002/demoNodeJsApp is:pr sort:updated-desc"
+			query: $QUERY
 			type: ISSUE
 			after: $after
 		) {
