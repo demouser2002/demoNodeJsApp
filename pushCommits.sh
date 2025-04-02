@@ -12,6 +12,8 @@ after=null
 hasNextPage=true
 while [ $hasNextPage ]
 do
+echo $hasNextPage
+echo $after
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
   query($name: String!, $owner: String!,$since: GitTimestamp!, $after: String){
     repository(owner:$owner, name:$name) {
