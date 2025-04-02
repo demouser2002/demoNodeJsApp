@@ -12,8 +12,8 @@ after=""
 query='repo:demouser2002/demoNodeJsApp is:pr sort:updated-desc'
 echo $query
 
-hasNextPage=true
-while [ $hasNextPage ]
+hasNextPage="true"
+while [ $hasNextPage = "true" ]
 do
 gh api graphql -F after=$after -f query='
 query prdetails($after: String) {
