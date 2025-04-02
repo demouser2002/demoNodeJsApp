@@ -9,8 +9,8 @@ days=5
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=null
 
-hasNextPage=true
-while [ $hasNextPage ]
+hasNextPage="true"
+while [ $hasNextPage = "true" ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after="$after" -f query='
   query($name: String!, $owner: String!,$since: GitTimestamp!, $after: String){
@@ -55,6 +55,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after="$af
     }' > commits.json
  
  hasNextPage=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
+ echo $hasNextPage
  after=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
  echo $after
 done
