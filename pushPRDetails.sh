@@ -158,8 +158,8 @@ query prdetails($query: String!, $after: String) {
 		}
 	}'> prs.json
 
- hasNextPage=`jq -r '.data.search.pageInfo.hasNextPage' issues.json`
+ hasNextPage=`jq -r '.data.search.pageInfo.hasNextPage' prs.json`
  echo $hasNextPage
- after=`jq -r '.data.search.pageInfo.endCursor' issues.json`
+ after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
  echo $after 
 done
