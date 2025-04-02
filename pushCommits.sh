@@ -61,6 +61,6 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after="$af
 
  
  hasNextPage=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
- after=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
+ after=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
  echo $after
 done
