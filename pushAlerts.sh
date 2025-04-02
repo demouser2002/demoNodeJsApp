@@ -1,14 +1,13 @@
 #!/bin/bash
 
-states=("AUTO_DISMISSED" "DISMISSED" "OPEN" "FIXED")
 hasNextPage="true"
 while [ $hasNextPage = "true"  ]
 do
-gh api graphql -F owner='{owner}' -F name='{repo}' -F states=$states -f query='
-query {
-		repository(owner:{owner}, name:{repo}) 
+gh api graphql -F owner='{owner}' -F name='{repo}'  -f query='
+    query alerts ($owner: String!, $name: String!) {
+		repository(owner:$owner, name:$name) 
 		{
-			vulnerabilityAlerts(last:100, states:${states[@]} ) 
+			vulnerabilityAlerts(last:100, states: [AUTO_DISMISSED,DISMISSED,OPEN,FIXED])
 			{      
 				pageInfo 
 				{        
@@ -68,7 +67,7 @@ query {
 				}
 			}
 		}
-	}'> alerts.json
+    }' > alerts.json
 
  hasNextPage=`jq -r '.data.repository.vulnerabilityAlerts.pageInfo.hasNextPage' alerts.json`
  echo $hasNextPage
