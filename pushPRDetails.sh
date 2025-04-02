@@ -8,6 +8,10 @@ fi
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
+
+echo {$repo}
+echo {$owner}
+
 query='repo:demouser2002/demoNodeJsApp is:pr sort:updated-desc'
 echo $query
 
