@@ -1,10 +1,10 @@
 #!/bin/bash
 
 days=30
-since="2025-01-03T00:00:00Z"
+#since="2025-01-03T00:00:00Z"
 echo $(date +"%Y-%m-%dT%H:%M:%SZ")
 echo $(date --help)
-#since=$(date +"%Y-%m-%dT%H:%M:%SZ")
+since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 #since=`date -v-30d +"%Y-%m-%dT%H:%M:%S"`
 after=""
 
