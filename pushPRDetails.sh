@@ -12,13 +12,13 @@ after=""
 echo $GITHUB_REPOSITORY
 
 QUERY="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
-echo $query
+echo $QUERY
 
 hasNextPage="true"
 while [ $hasNextPage = "true" ]
 do
-gh api graphql -F after=$after -f query='
-query prdetails($after: String) {
+gh api graphql -F QUERY=$QUERY -F after=$after -f query='
+query prdetails($QUERY: String!, $after: String) {
 	    search(
 			first: 100
 			query: $QUERY
