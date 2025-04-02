@@ -7,7 +7,7 @@ fi
 
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
-after=""
+after=null
 
 hasNextPage="true"
 while [ $hasNextPage = "true" ]
