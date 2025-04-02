@@ -74,6 +74,5 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  echo $hasNextPage
  after=`jq '.data.repository.issues.pageInfo.endCursor' issues.json | sed 's/"//g'`
  echo $after 
- echo `cat issues.json`
 done
 
