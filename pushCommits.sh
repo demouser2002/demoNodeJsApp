@@ -56,7 +56,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$aft
 
  echo `cat commits.json`
  hasNextPage=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
- temp=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json | | sed 's/"//g'`
+ temp=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json | sed 's/"//g'`
  after=\"$temp\"
  echo $temp
  echo $after
