@@ -12,8 +12,6 @@ after=null
 hasNextPage=true
 while [ $hasNextPage ]
 do
-echo $hasNextPage
-echo $after
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
   query($name: String!, $owner: String!,$since: GitTimestamp!, $after: String){
     repository(owner:$owner, name:$name) {
@@ -58,8 +56,5 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$aft
 
  echo `cat commits.json`
  hasNextPage=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
- echo $hasNextPage
  after=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
- echo `jq '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
- echo $after 
 done
