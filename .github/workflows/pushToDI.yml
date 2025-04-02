@@ -32,7 +32,7 @@ jobs:
 #    - run: git log
     - run: gh version
     - run: gh api repos/demouser2002/demoNodeJSApp/issues
-    - run: sh scripts.sh
+    - run: sh script.sh
     - run: cat commits.json
     - run: sh pushIssuesh.sh
     - run: cat issues.json
