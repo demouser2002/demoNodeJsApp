@@ -7,7 +7,7 @@ fi
 
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
-after=""
+after=null
 
 hasNextPage=true
 while [ $hasNextPage ]
@@ -57,6 +57,5 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after="$af
  echo `cat commits.json`
  hasNextPage=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
  after=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
- after="$after"
  echo $after
 done
