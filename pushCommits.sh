@@ -13,46 +13,46 @@ hasNextPage="true"
 while [ $hasNextPage = "true" ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
-  query commits ($owner: String!, $name: String!, $since: GitTimestamp!, $after: String) {
-		repository(owner:$owner, name: $name) {
-			defaultBranchRef {
-				target {
-					... on Commit {
-						history(since: $since, first: 2, after: $after) {
-							totalCount
-							nodes {
-								additions
-								deletions
-								author {
-									email
-									user {
-										login
-										id
-										name
-									}
-								}
-								id
-								message
-								oid
-								parents(first: 100) {
-									nodes {
-										oid
-									}
-								}
-								authoredDate
-								changedFilesIfAvailable
-								commitUrl
-							}
-							pageInfo {
-								endCursor
-								hasNextPage
-							}
-						}
-					}
-				}
-			}
-		}
-	}' > commits.json
+  query($name: String!, $owner: String!,$since: GitTimestamp!, $after: String){
+    repository(owner:$owner, name:$name) {
+            defaultBranchRef {
+                target {
+                    ... on Commit {
+                        history(since: $start_date, first: 2) {
+                            totalCount
+                            nodes {
+                                additions
+                                deletions
+                                author {
+                                    email
+                                    user {
+                                        login
+                                        id
+                                        name
+                                    }
+                                }
+                                id
+                                message
+                                oid
+                                parents(first: 2) {
+                                    nodes {
+                                        oid
+                                    }
+                                }
+                                authoredDate
+                                changedFilesIfAvailable
+                                commitUrl
+                            }
+                            pageInfo {
+                                endCursor
+                                hasNextPage
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }' > commits.json
 
  hasNextPage=`jq '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
  echo $hasNextPage
