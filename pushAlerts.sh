@@ -7,7 +7,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}'  -f query='
     query alerts ($owner: String!, $name: String!) {
 		repository(owner:$owner, name:$name) 
 		{
-			vulnerabilityAlerts(last:100)
+			vulnerabilityAlerts(last:100, states: [AUTO_DISMISSED,DISMISSED,OPEN,FIXED])
 			{      
 				pageInfo 
 				{        
