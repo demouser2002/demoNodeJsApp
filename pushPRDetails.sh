@@ -21,7 +21,7 @@ gh api graphql -F QUERY="$QUERY" -F after=$after -f query='
 query prdetails($QUERY: String!, $after: String) {
 	    search(
 			first: 100
-			query: ${QUERY}
+			query: $QUERY
 			type: ISSUE
 			after: $after
 		) {
