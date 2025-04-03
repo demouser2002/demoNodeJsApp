@@ -6,13 +6,13 @@ days=${1:-30}
 start_date=${2:-}
 end_date=${3:-}
 
-if [ -n "$start_date" && -n "$end_date" ]; then
+if [ -n "$start_date" -a -n "$end_date" ]; then
         # Use start_date and end_date
-        if [ -n "$start_date" && -n "$end_date" ]; then
+        if [ -n "$start_date" -a -n "$end_date" ]; then
             # Use start_date and end_date
             since=$(date -d "$start_date" "+%Y-%m-%d")
             until=$(date -d "$end_date" "+%Y-%m-%d")
-        elif [ -n "$start_date" && -n "$days" ]; then
+        elif [ -n "$start_date" -a -n "$days" ]; then
             # Use start_date and days
             since=$(date -d "$start_date - $days days" "+%Y-%m-%d")
             until=$(date -d "$start_date" "+%Y-%m-%d")
