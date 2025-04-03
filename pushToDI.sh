@@ -21,8 +21,8 @@ for param in "$@"; do
                 start_date) start_date=$value ;;
                 end_date) end_date=$value ;;
                 issues) issues=$value ;;
-                commits) issues=$value ;;
-                pullrequests) issues=$value ;;
+                commits) commits=$value ;;
+                pullrequests) pullrequests=$value ;;
                 push) push=$value ;;
                 *) echo "Unknown parameter: $param"; usage ;;
             esac
