@@ -31,6 +31,6 @@ fi
 
 if [ "$PULLREQUESTS" = "true" ]; then
     sh pushPRDetails.sh $DAYS
-     echo "Issues pushed to DevOps Intelligence"
+     echo "Pull Requests pushed to DevOps Intelligence"
 fi
 
