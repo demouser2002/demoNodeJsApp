@@ -1,12 +1,5 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <number_of_days>"
-    exit 1
-fi
-
-days=$1
-since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
 QUERY="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
 issuesPushed=0
