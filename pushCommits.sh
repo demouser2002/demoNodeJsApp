@@ -78,7 +78,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
     commitsPushed=$((commitsPushed + commitBatchSize))
 
     # Print progress
-    echo "Pushed $commitsPushed out of $commitsCount issues."
+    echo "Pushed $commitsPushed out of $commitsCount issues to DevOps Intelligence."
  fi    
  
 done
