@@ -10,11 +10,7 @@ since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
 QUERY="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
 issuesPushed=0
-timelinesPushed=0
-commitsPushed=0
 issueBatchSize=100
-timelineBatchSize=50
-commitBatchSize=100
 hasNextPage="true"
 
 while [ $hasNextPage = "true" ]
@@ -169,8 +165,6 @@ query prdetails($QUERY: String!, $after: String) {
  after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
  echo 'End Cursor:' $after 
  issuesCount=`jq -r '.data.search.issueCount' prs.json`
- timelinesCount=`jq -r '.data.search.nodes[0].timelineItems.totalCount' prs.json`
- commitsCount=`jq -r '.data.search.nodes[0].commits.totalCount' prs.json`
  
 # Push issues in batches of 100
 if [ $issuesPushed -lt $issuesCount ]; then
@@ -183,48 +177,13 @@ if [ $issuesPushed -lt $issuesCount ]; then
     fi
 
     # Simulate pushing issues (replace this with actual push logic if needed)
-    echo "Pushing $issueBatchSize issues..."
+    echo "Pushing Pull Request Details of $issueBatchSize issues..."
 
     # Update the number of issues pushed
     issuesPushed=$((issuesPushed + issueBatchSize))
 
     # Print progress
-    echo "Pushed $issuesPushed out of $issuesCount issues."
+    echo "Pushed Pull Request Details $issuesPushed out of $issuesCount issues."
  fi 
- if [ $timelinesPushed -lt $timelinesCount]; then
-    # Calculate the remaining timelines
-    remainingTimelines=$((timelinesCount - timelinesPushed))
-    
-    # Determine the number of timelines to push in this iteration
-    if [ $remainingTimelines -lt $timelineBatchSize ]; then
-        timelineBatchSize=$remainingTimelines
-    fi
-
-    # Simulate pushing timelines (replace this with actual push logic if needed)
-    echo "Pushing $timelineBatchSize timelines..."
-
-    # Update the number of timelines pushed
-    timelinesPushed=$((timelinesCount + timelineBatchSize))
-
-    # Print progress
-    echo "Pushed $timelinesCount out of $timelinesCount timelines."
- fi 
- if [ $commitsPushed -lt $commitsCount ]; then
-    # Calculate the remaining issues
-    remainingCommits=$((commitsCount - commitsPushed))
-    
-    # Determine the number of issues to push in this iteration
-    if [ $remainingCommits -lt $commitBatchSize ]; then
-        commitBatchSize=$remainingCommits
-    fi
-
-    # Simulate pushing issues (replace this with actual push logic if needed)
-    echo "Pushing $commitBatchSize commits..."
-
-    # Update the number of issues pushed
-    commitsPushed=$((commitsPushed + commitBatchSize))
-
-    # Print progress
-    echo "Pushed $commitsPushed out of $commitsCount issues."
- fi 
+ 
 done
