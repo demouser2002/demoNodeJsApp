@@ -166,6 +166,6 @@ query prdetails($QUERY: String!, $after: String) {
  after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
  echo 'End Cursor:' $after 
  if [ $after != null ]; then
-    cat `prs.json`
+    `cat prs.json`
  fi
 done
