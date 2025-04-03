@@ -5,7 +5,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-days=5
+days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=null
 
@@ -18,7 +18,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
             defaultBranchRef {
                 target {
                     ... on Commit {
-                        history(since: $since, first: 2, after: $after) {
+                        history(since: $since, first: 100, after: $after) {
                             totalCount
                             nodes {
                                 additions
@@ -34,7 +34,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
                                 id
                                 message
                                 oid
-                                parents(first: 2) {
+                                parents(first: 100) {
                                     nodes {
                                         oid
                                     }
@@ -55,7 +55,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
     }' > commits.json
  
  hasNextPage=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
- echo $hasNextPage
+ echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
- echo $after
+ echo 'End Cursor:' $after
 done
