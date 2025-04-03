@@ -84,5 +84,11 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.repository.issues.pageInfo.endCursor' issues.json`
  echo 'End Cursor:' $after 
+
+issueCount=`jq -r '.data.repository.issues.issueCount' issues.json`
+ if [ $after != null ]; then
+    echo 'Pushed ' $issueCount ' Issues to DevOps Intelligence'
+ fi
+ 
 done
 
