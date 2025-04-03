@@ -17,14 +17,15 @@ for param in "$@"; do
             key=${param%%=*}
             value=${param#*=}
             case "$key" in
-            days) days=$value ;;
-            start_date) start_date=$value ;;
-            end_date) end_date=$value ;;
-            issues) issues=$value ;;
-            commits) issues=$value ;;
-            pullrequests) issues=$value ;;
-            push) push=$value ;;
-            *) echo "Unknown parameter: $param"; usage ;;
+                days) days=$value ;;
+                start_date) start_date=$value ;;
+                end_date) end_date=$value ;;
+                issues) issues=$value ;;
+                commits) issues=$value ;;
+                pullrequests) issues=$value ;;
+                push) push=$value ;;
+                *) echo "Unknown parameter: $param"; usage ;;
+            esac
 done
 
 if [ "$push" = "all" ]; then
