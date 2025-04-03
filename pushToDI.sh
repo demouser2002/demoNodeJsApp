@@ -20,17 +20,29 @@ elif [ $# > 0 ]; then
 fi
 
 if [ "$ISSUES" = "true" ]; then
-    sh pushIssues.sh $DAYS
-     echo "Issues pushed to DevOps Intelligence"
+     if sh pushIssues.sh $DAYS; then
+        echo "Issues pushed to DevOps Intelligence"
+    else
+        echo "Error: Failed to push issues to DevOps Intelligence"
+        exit 1
+    fi    
 fi
 
 if [ "$COMMITS" = "true" ]; then
-    sh pushCommits.sh $DAYS
-     echo "Commits pushed to DevOps Intelligence"
+     if sh pushCommits.sh $DAYS; then
+        echo "Commits pushed to DevOps Intelligence"
+    else
+        echo "Error: Failed to push commits to DevOps Intelligence"
+        exit 1
+    fi    
 fi
 
 if [ "$PULLREQUESTS" = "true" ]; then
-    sh pushPRDetails.sh $DAYS
-     echo "Pull Requests pushed to DevOps Intelligence"
+     if sh pushPRDetails.sh $DAYS; then
+        echo "Pull Requests pushed to DevOps Intelligence"
+    else
+        echo "Error: Failed to push pull requests to DevOps Intelligence"
+        exit 1
+    fi    
 fi
 
