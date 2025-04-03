@@ -83,10 +83,8 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 		}
 	}'> issues.json
 
- hasNextPage=`jq -r '.data.repository.issues.pageInfo.hasNextPage' issues.json`
- echo 'Has NextPage:' $hasNextPage
- after=`jq -r '.data.repository.issues.pageInfo.endCursor' issues.json`
- echo 'End Cursor:' $after 
+hasNextPage=`jq -r '.data.repository.issues.pageInfo.hasNextPage' issues.json`
+after=`jq -r '.data.repository.issues.pageInfo.endCursor' issues.json`
 
 issuesCount=`jq -r '.data.repository.issues.totalCount' issues.json`
 
