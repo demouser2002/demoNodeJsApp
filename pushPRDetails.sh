@@ -14,7 +14,7 @@ issueBatchSize=100
 hasNextPage="true"
 
 
-echo '************* Querying Pull Request Details ***************************************'
+echo '************* Pushing Pull Request Details ***************************************'
 
 while [ $hasNextPage = "true" ]
 do
