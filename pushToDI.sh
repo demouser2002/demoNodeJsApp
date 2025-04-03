@@ -1,6 +1,17 @@
 
 #!/usr/bash
 
+# Function to display usage
+usage() {
+    echo "Usage: $0 days=<days> start_date=<start_date> end_date=<end_date> push=<all|issues=true,commits=true,pullrequests=true>"
+    echo "Parameters:"
+    echo "  days: Number of days (optional if start_date and end_date are provided)"
+    echo "  start_date: Start date in YYYY-MM-DD format (optional if days is provided)"
+    echo "  end_date: End date in YYYY-MM-DD format (optional if days is provided)"
+    echo "  push: Specify 'all' or individual push types (issues=true, commits=true, pullrequests=true). Default is all."
+    exit 1
+}
+
 # Parse input parameters
 for param in "$@"; do
             key=${param%%=*}
@@ -9,30 +20,18 @@ for param in "$@"; do
             days) days=$value ;;
             start_date) start_date=$value ;;
             end_date) end_date=$value ;;
-            push)
-            if [[ -z "$value" ]]; then
-                # If no push values are provided, consider all
-                issues=true
-                commits=true
-                pullrequests=true
-            else
-                # Remove square brackets and split values by comma
-                value=${value#[}
-                value=${value%]}
-                IFS=',' read -ra push_values <<< "$value"
-                for push_value in "${push_values[@]}"; do
-                    case "$push_value" in
-                    issues) issues=true ;;
-                    commits) commits=true ;;
-                    pullrequests) pullrequests=true ;;
-                    *) echo "Unknown push value: $push_value"; exit 1 ;;
-                    esac
-                done
-            fi
-            ;;
-            *) echo "Unknown parameter: $key"; exit 1 ;;
-            esac
+            issues) issues=$value ;;
+            commits) issues=$value ;;
+            pullrequests) issues=$value ;;
+            push) push=$value ;;
+            *) echo "Unknown parameter: $param"; usage ;;
 done
+
+if [ "$push" = "all" ]; then
+   issues=true
+   commits=true
+   pullrequests=true
+fi   
 
 echo $days
 echo $start_date
