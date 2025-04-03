@@ -73,7 +73,7 @@ if [ "$issues" = "true" ]; then
 fi
 
 if [ "$commits" = "true" ]; then
-     if [ sh pushCommits.sh $since $until ]; then
+     if sh pushCommits.sh $since $until ; then
         echo "*************Commits successfully pushed to DevOps Intelligence*************"
     else
         echo "*********Error: Failed to push commits to DevOps Intelligence***************"
@@ -82,7 +82,7 @@ if [ "$commits" = "true" ]; then
 fi
 
 if [ "$pullrequests" = "true" ]; then
-     if [ sh pushPRDetails.sh $since $until ]; then
+     if  sh pushPRDetails.sh $since $until ; then
         echo "********Pull Requests Details successfully pushed to DevOps Intelligence*****"
     else
         echo "*****Error: Failed to push pull requests details to DevOps Intelligence******"
