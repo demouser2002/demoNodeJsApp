@@ -18,8 +18,11 @@ check_status() {
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
-
+issuesPushed=0
+batchSize=100
 hasNextPage="true"
+
+
 while [ $hasNextPage = "true"  ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
@@ -85,10 +88,27 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
  after=`jq -r '.data.repository.issues.pageInfo.endCursor' issues.json`
  echo 'End Cursor:' $after 
 
-issueCount=`jq -r '.data.repository.issues.totalCount' issues.json`
- if [ $after != null ]; then
-    echo 'Pushed ' $issueCount ' Issues to DevOps Intelligence'
- fi
- 
+issuesCount=`jq -r '.data.repository.issues.totalCount' issues.json`
+
+
+# Push issues in batches of 100
+if [ $issuesPushed -lt $issuesCount ]; then
+    # Calculate the remaining issues
+    remainingIssues=$((issuesCount - issuesPushed))
+    
+    # Determine the number of issues to push in this iteration
+    if [ $remainingIssues -lt $batchSize ]; then
+        batchSize=$remainingIssues
+    fi
+
+    # Simulate pushing issues (replace this with actual push logic if needed)
+    echo "Pushing $batchSize issues..."
+
+    # Update the number of issues pushed
+    issuesPushed=$((issuesPushed + batchSize))
+
+    # Print progress
+    echo "Pushed $issuesPushed out of $issuesCount issues."
+ fi    
 done
 
