@@ -1,6 +1,9 @@
 
 #!/usr/bash
 
+DAYS=${DAYS:-30}
+echo $DAYS
+
 if [ $# = 0 ]; then
     ISSUES="true"
     COMMITS="true"
@@ -17,17 +20,17 @@ elif [ $# > 0 ]; then
 fi
 
 if [ "$ISSUES" = "true" ]; then
-    sh pushIssues.sh
+    sh pushIssues.sh $DAYS
      echo "Issues pushed to DevOps Intelligence"
 fi
 
 if [ "$COMMITS" = "true" ]; then
-    sh pushCommits.sh
+    sh pushCommits.sh $DAYS
      echo "Commits pushed to DevOps Intelligence"
 fi
 
 if [ "$PULLREQUESTS" = "true" ]; then
-    sh pushPRDetails.sh
+    sh pushPRDetails.sh $DAYS
      echo "Issues pushed to DevOps Intelligence"
 fi
 
