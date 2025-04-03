@@ -13,6 +13,9 @@ issuesPushed=0
 issueBatchSize=100
 hasNextPage="true"
 
+
+echo '************* Querying Pull Request Details ***************************************'
+
 while [ $hasNextPage = "true" ]
 do
 gh api graphql -F QUERY="$QUERY" -F after=$after -f query='
@@ -161,9 +164,7 @@ query prdetails($QUERY: String!, $after: String) {
 	}'> prs.json
 
  hasNextPage=`jq -r '.data.search.pageInfo.hasNextPage' prs.json`
- echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
- echo 'End Cursor:' $after 
  issuesCount=`jq -r '.data.search.issueCount' prs.json`
  
 # Push issues in batches of 100
@@ -177,13 +178,13 @@ if [ $issuesPushed -lt $issuesCount ]; then
     fi
 
     # Simulate pushing issues (replace this with actual push logic if needed)
-    echo "Pushing Pull Request Details of $issueBatchSize issues..."
+    echo "Pushing Pull Request Details of $issueBatchSize issues to DevOps Intelligence..."
 
     # Update the number of issues pushed
     issuesPushed=$((issuesPushed + issueBatchSize))
 
     # Print progress
-    echo "Pushed Pull Request Details $issuesPushed out of $issuesCount issues."
+    echo "Pushed Pull Request Details $issuesPushed out of $issuesCount issues to DevOps Intelligence."
  fi 
  
 done
