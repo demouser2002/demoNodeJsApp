@@ -58,4 +58,9 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
  echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
  echo 'End Cursor:' $after
+
+ commitCount=`jq -r '.data.repository.defaultBranchRef.target.history.totalCount' commits.json`
+ if [ $after != null ]; then
+    echo 'Pushed ' $commitCount ' Commits to DevOps Intelligence'
+ fi
 done
