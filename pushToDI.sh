@@ -9,12 +9,35 @@ for param in "$@"; do
             days) days=$value ;;
             start_date) start_date=$value ;;
             end_date) end_date=$value ;;
+            push)
+            if [[ -z "$value" ]]; then
+                # If no push values are provided, consider all
+                issues=true
+                commits=true
+                pullrequests=true
+            else
+                # Remove square brackets and split values by comma
+                value=${value#[}
+                value=${value%]}
+                IFS=',' read -ra push_values <<< "$value"
+                for push_value in "${push_values[@]}"; do
+                    case "$push_value" in
+                    issues) issues=true ;;
+                    commits) commits=true ;;
+                    pullrequests) pullrequests=true ;;
+                    *) echo "Unknown push value: $push_value"; exit 1 ;;
+                    esac
+                done
+            fi
+            ;;
             *) echo "Unknown parameter: $key"; exit 1 ;;
             esac
 done
+
 echo $days
 echo $start_date
 echo $end_date
+
 
 # Use start_date and end_date
 if [ -n "$start_date" -a -n "$end_date" ]; then
@@ -39,22 +62,8 @@ echo "Until: $until"
         
 echo "********Pushing data to DevOps Intelligence from "$since" to "$until" ************"
 
-if [ $# = 0 ]; then
-    ISSUES="true"
-    COMMITS="true"
-    PULLREQUESTS="true"
-elif [ $# > 0 ]; then
-    for type in "$@"
-    do
-        case "$type" in
-            issues) ISSUES="true";;
-            commits) COMMITS="true";;
-            pullrequests) PULLREQUESTS="true";;
-        esac
-    done
-fi
 
-if [ "$ISSUES" = "true" ]; then
+if [ "$issues" = "true" ]; then
      if [ sh pushIssues.sh $since $until ]; then
         echo "*************Issues successfully pushed to DevOps Intelligence**************"
     else
@@ -63,7 +72,7 @@ if [ "$ISSUES" = "true" ]; then
     fi    
 fi
 
-if [ "$COMMITS" = "true" ]; then
+if [ "$commits" = "true" ]; then
      if [ sh pushCommits.sh $since $until ]; then
         echo "*************Commits successfully pushed to DevOps Intelligence*************"
     else
@@ -72,7 +81,7 @@ if [ "$COMMITS" = "true" ]; then
     fi    
 fi
 
-if [ "$PULLREQUESTS" = "true" ]; then
+if [ "$pullrequests" = "true" ]; then
      if [ sh pushPRDetails.sh $since $until ]; then
         echo "********Pull Requests Details successfully pushed to DevOps Intelligence*****"
     else
