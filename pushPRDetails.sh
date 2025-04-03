@@ -165,7 +165,8 @@ query prdetails($QUERY: String!, $after: String) {
  echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
  echo 'End Cursor:' $after 
+ issueCount=`jq -r '.data.search.issueCount' prs.json`
  if [ $after != null ]; then
-    `cat prs.json`
+    echo 'Pushed Pull Requests of ' $issueCount ' to DI'
  fi
 done
