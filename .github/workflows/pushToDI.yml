@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         GH_TOKEN: ${{ github.token }}
-        days: ${{ vars.DAYS }}
+        DAYS: ${{ vars.DAYS }}
     strategy:
       matrix:
         node-version: [18.x]
