@@ -34,11 +34,6 @@ if [ "$push" = "all" ]; then
    pullrequests=true
 fi   
 
-echo $days
-echo $start_date
-echo $end_date
-
-
 # Use start_date and end_date
 if [ -n "$start_date" -a -n "$end_date" ]; then
 # Use start_date and end_date
@@ -57,14 +52,11 @@ else
         exit 1
 fi
 
-echo "Since: $since"
-echo "Until: $until"
-        
 echo "********Pushing data to DevOps Intelligence from "$since" to "$until" ************"
 
 
 if [ "$issues" = "true" ]; then
-     if  sh pushIssues.sh $since $until ; then
+     if  sh pushIssues.sh $since ; then
         echo "*************Issues successfully pushed to DevOps Intelligence**************"
     else
         echo "*********Error: Failed to push issues to DevOps Intelligence****************"
@@ -82,7 +74,7 @@ if [ "$commits" = "true" ]; then
 fi
 
 if [ "$pullrequests" = "true" ]; then
-     if  sh pushPRDetails.sh $since $until ; then
+     if  sh pushPRDetails.sh ; then
         echo "********Pull Requests Details successfully pushed to DevOps Intelligence*****"
     else
         echo "*****Error: Failed to push pull requests details to DevOps Intelligence******"
