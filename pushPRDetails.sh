@@ -12,7 +12,6 @@ after=""
 echo $GITHUB_REPOSITORY
 
 QUERY="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
-echo $QUERY
 
 hasNextPage="true"
 while [ $hasNextPage = "true" ]
@@ -163,7 +162,10 @@ query prdetails($QUERY: String!, $after: String) {
 	}'> prs.json
 
  hasNextPage=`jq -r '.data.search.pageInfo.hasNextPage' prs.json`
- echo $hasNextPage
+ echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.search.pageInfo.endCursor' prs.json`
- echo $after 
+ echo 'End Cursor:' $after 
+ if [ $after != null ] then
+    cat `prs.json`
+ fi
 done
