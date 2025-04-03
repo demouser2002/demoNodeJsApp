@@ -5,6 +5,16 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+set -e
+
+# Function to check the exit status of the last command
+check_status() {
+    if [ $? -ne 0 ]; then
+        echo "Error: Command failed. Exiting."
+        exit 1
+    fi
+}
+
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=""
@@ -15,7 +25,7 @@ do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
 query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
 		repository(owner:$owner, name: $name) {
-			issues(first: 2, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
+			issues(first: 100, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
                                 totalCount
 				nodes {
 					id
@@ -71,8 +81,8 @@ query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String
 	}'> issues.json
 
  hasNextPage=`jq -r '.data.repository.issues.pageInfo.hasNextPage' issues.json`
- echo $hasNextPage
+ echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.repository.issues.pageInfo.endCursor' issues.json`
- echo $after 
+ echo 'End Cursor:' $after 
 done
 
