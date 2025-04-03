@@ -9,24 +9,22 @@ echo $start_date
 end_date=${3:-}
 echo $end_date
 
+# Use start_date and end_date
 if [ -n "$start_date" -a -n "$end_date" ]; then
-        # Use start_date and end_date
-        if [ -n "$start_date" -a -n "$end_date" ]; then
-            # Use start_date and end_date
-            since=$(date -d "$start_date" "+%Y-%m-%d")
-            until=$(date -d "$end_date" "+%Y-%m-%d")
-        elif [ -n "$start_date" -a -n "$days" ]; then
-            # Use start_date and days
-            since=$(date -d "$start_date - $days days" "+%Y-%m-%d")
-            until=$(date -d "$start_date" "+%Y-%m-%d")
-        elif [ -n "$days" ]; then
-            # Use days and current date
-            until=$(date "+%Y-%m-%d")
-            since=$(date -d "$until - $days days" "+%Y-%m-%d")
-        else
-            echo "Error: Insufficient parameters provided. Please provide at least 'days' or 'start_date' with 'end_date' or 'days'."
-            exit 1
-        fi
+# Use start_date and end_date
+        since=$(date -d "$start_date" "+%Y-%m-%dT%H:%M:%S")
+        until=$(date -d "$end_date" "+%Y-%m-%dT%H:%M:%S")
+elif [ -n "$start_date" -a -n "$days" ]; then
+        # Use start_date and days
+        since=$(date -d "$start_date - $days days" "+%Y-%m-%dT%H:%M:%S")
+        until=$(date -d "$start_date" "+%Y-%m-%dT%H:%M:%S")
+elif [ -n "$days" ]; then
+        # Use days and current date
+        until=$(date "+%Y-%m-%dT%H:%M:%S")
+        since=$(date -d "$until - $days days" "+%Y-%m-%dT%H:%M:%S")
+else
+        echo "Error: Insufficient parameters provided. Please provide at least 'days' or 'start_date' with 'end_date' or 'days'."
+        exit 1
 fi
 
 echo "Since: $since"
