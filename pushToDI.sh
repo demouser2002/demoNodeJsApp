@@ -2,11 +2,18 @@
 #!/usr/bash
 
 # Parse input parameters
-days=${1:-30}
+for param in "$@"; do
+            key=${param%%=*}
+            value=${param#*=}
+            case "$key" in
+            days) days=$value ;;
+            start_date) start_date=$value ;;
+            end_date) end_date=$value ;;
+            *) echo "Unknown parameter: $key"; exit 1 ;;
+            esac
+done
 echo $days
-start_date=${2:-}
 echo $start_date
-end_date=${3:-}
 echo $end_date
 
 # Use start_date and end_date
