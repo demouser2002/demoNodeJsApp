@@ -21,4 +21,4 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: sh pushToDI.sh days=30 start_date=2025-01-01 push=all
+    - run: sh pushToDI.sh days=30 start_date=2025-04-01 push=all
