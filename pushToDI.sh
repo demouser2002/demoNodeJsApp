@@ -51,7 +51,7 @@ elif [ -n "$start_date" -a -n "$days" ]; then
 elif [ -n "$days" ]; then
         # Use days and current date
         until=$(date "+%Y-%m-%dT%H:%M:%S")
-        since=$(date -d "$until - $days days" "+%Y-%m-%dT%H:%M:%S")
+        since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 else
         echo "Error: Insufficient parameters provided. Please provide at least 'days' or 'start_date' with 'end_date' or 'days'."
         exit 1
