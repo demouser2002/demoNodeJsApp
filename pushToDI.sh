@@ -1,12 +1,6 @@
 
 #!/usr/bash
 
-set -e
-
-if [[ "${PUSH_DEBUG:-false}" == "true" ]]; then
-    set -x
-fi
-
 if [[ $# == 0 ]]; then
     ISSUES="true"
     COMMITS="true"
