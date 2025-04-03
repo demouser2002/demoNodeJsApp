@@ -64,7 +64,7 @@ echo "********Pushing data to DevOps Intelligence from "$since" to "$until" ****
 
 
 if [ "$issues" = "true" ]; then
-     if [ sh pushIssues.sh $since $until ]; then
+     if  sh pushIssues.sh $since $until ; then
         echo "*************Issues successfully pushed to DevOps Intelligence**************"
     else
         echo "*********Error: Failed to push issues to DevOps Intelligence****************"
