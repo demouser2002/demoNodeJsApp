@@ -8,8 +8,10 @@ fi
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=null
-commits_pushed=0
+commitsPushed=0
+commitBatchSize=100
 hasNextPage="true"
+
 while [ $hasNextPage = "true" ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$after" -f query='
@@ -59,27 +61,26 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
  after=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
  echo 'End Cursor:' $after
 
- commitCount=`jq -r '.data.repository.defaultBranchRef.target.history.totalCount' commits.json`
-
-batch_size=100
+ commitsCount=`jq -r '.data.repository.defaultBranchRef.target.history.totalCount' commits.json`
 
 # Push commits in batches of 100
-if [ $commits_pushed -lt $commitCount ]; then
+ if [ $commitsPushed -lt $commitsCount ]; then
     # Calculate the remaining commits
-    remaining_commits=$((commitCount - commits_pushed))
+    remainingCommits=$((commitsCount - commitsPushed))
     
     # Determine the number of commits to push in this iteration
-    if [ $remaining_commits -lt $batch_size ]; then
-        batch_size=$remaining_commits
+    if [ $remainingCommits -lt $commitBatchSize ]; then
+        commitBatchSize=$remainingCommits
     fi
 
     # Simulate pushing commits (replace this with actual push logic if needed)
-    echo "Pushing $batch_size commits..."
+    echo "Pushing $commitBatchSize commits..."
 
     # Update the number of commits pushed
-    commits_pushed=$((commits_pushed + batch_size))
+    commitsPushed=$((commitsPushed + commitBatchSize))
 
     # Print progress
-    echo "Pushed $commits_pushed out of $commitCount commits."
+    echo "Pushed $commitsPushed out of $commitsCount issues."
  fi    
+ 
 done
