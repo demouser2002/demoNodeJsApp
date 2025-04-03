@@ -65,7 +65,7 @@ commits_pushed=0
 batch_size=100
 
 # Push commits in batches of 100
-if[ $commits_pushed -lt $commitCount ]; then
+if [ $commits_pushed -lt $commitCount ]; then
     # Calculate the remaining commits
     remaining_commits=$((commitCount - commits_pushed))
     
