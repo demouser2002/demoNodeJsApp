@@ -21,13 +21,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: sh pushIssues.sh $days
-    - run: cat issues.json
-    - run: sh pushCommits.sh $days
-    - run: cat commits.json
-    - run: sh pushPRDetails.sh $days
-    - run: cat prs.json
-    - run: sh pushAlerts.sh 
-    - run: cat alerts.json
-    - run: sh pushBranches.sh 
-    - run: cat branches.json
+    - run: sh pushToDI.sh
+    
