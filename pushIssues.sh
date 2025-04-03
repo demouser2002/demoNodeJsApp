@@ -23,6 +23,8 @@ batchSize=100
 hasNextPage="true"
 
 
+echo '************* Querying Issues ***************************************'
+
 while [ $hasNextPage = "true"  ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
