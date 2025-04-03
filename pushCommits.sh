@@ -12,6 +12,7 @@ commitsPushed=0
 commitBatchSize=100
 hasNextPage="true"
 
+echo '************* Querying Issues ***************************************'
 while [ $hasNextPage = "true" ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$after" -f query='
@@ -57,10 +58,7 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
     }' > commits.json
  
  hasNextPage=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage' commits.json`
- echo 'Has NextPage:' $hasNextPage
  after=`jq -r '.data.repository.defaultBranchRef.target.history.pageInfo.endCursor' commits.json`
- echo 'End Cursor:' $after
-
  commitsCount=`jq -r '.data.repository.defaultBranchRef.target.history.totalCount' commits.json`
 
 # Push commits in batches of 100
@@ -84,3 +82,4 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
  fi    
  
 done
+
