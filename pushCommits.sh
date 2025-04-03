@@ -4,11 +4,11 @@ if [ -z "$1" ]; then
     echo "Usage: $0 <number_of_days>"
     exit 1
 fi
-i=0
+
 days=$1
 since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
 after=null
-commitPushed=0
+commits_pushed=0
 hasNextPage="true"
 while [ $hasNextPage = "true" ]
 do
@@ -61,7 +61,6 @@ gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F  after="$a
 
  commitCount=`jq -r '.data.repository.defaultBranchRef.target.history.totalCount' commits.json`
 
-commits_pushed=0
 batch_size=100
 
 # Push commits in batches of 100
