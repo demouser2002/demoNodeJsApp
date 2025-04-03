@@ -30,9 +30,9 @@ echo '************* Pushing Issues ***************************************'
 while [ $hasNextPage = "true"  ]
 do
 gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F until=$until -F after=$after -f query='
-query issues ($owner: String!, $name: String!, $since: DateTime!,$until: DateTime! $after: String) {
+query issues ($owner: String!, $name: String!, $since: DateTime!,$until: DateTime!, $after: String) {
 		repository(owner:$owner, name: $name) {
-			issues(first: 100, filterBy: {since: $since, until: $until}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
+			issues(first: 100, filterBy: {since: $since}, {until: $until}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
                                 totalCount
 				nodes {
 					id
