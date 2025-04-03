@@ -23,7 +23,7 @@ batchSize=100
 hasNextPage="true"
 
 
-echo '************* Querying Issues ***************************************'
+echo '************* Pushing Issues ***************************************'
 
 while [ $hasNextPage = "true"  ]
 do
