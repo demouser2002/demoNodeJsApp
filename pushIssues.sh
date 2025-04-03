@@ -102,13 +102,13 @@ if [ $issuesPushed -lt $issuesCount ]; then
     fi
 
     # Simulate pushing issues (replace this with actual push logic if needed)
-    echo "Pushing $batchSize issues..."
+    echo "Pushing $batchSize issues to DevOps Intelligence..."
 
     # Update the number of issues pushed
     issuesPushed=$((issuesPushed + batchSize))
 
     # Print progress
-    echo "Pushed $issuesPushed out of $issuesCount issues."
+    echo "Pushed $issuesPushed out of $issuesCount issues to DevOps Intelligence."
  fi    
 done
 
