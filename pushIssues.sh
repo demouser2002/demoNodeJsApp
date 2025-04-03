@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <number_of_days>"
-    exit 1
-fi
+#if [ -z "$1" ]; then
+#    echo "Usage: $0 <number_of_days>"
+#    exit 1
+#fi
 
 set -e
 
@@ -15,8 +15,10 @@ check_status() {
     fi
 }
 
-days=$1
-since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
+#days=$1
+#since=$(date --date="$days days ago" +"%Y-%m-%dT%H:%M:%S")
+since=$1
+until=$2
 after=""
 issuesPushed=0
 batchSize=100
@@ -27,10 +29,10 @@ echo '************* Pushing Issues ***************************************'
 
 while [ $hasNextPage = "true"  ]
 do
-gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F after=$after -f query='
-query issues ($owner: String!, $name: String!, $since: DateTime!, $after: String) {
+gh api graphql -F owner='{owner}' -F name='{repo}' -F since=$since -F until=$until -F after=$after -f query='
+query issues ($owner: String!, $name: String!, $since: DateTime!,$until: DateTime! $after: String) {
 		repository(owner:$owner, name: $name) {
-			issues(first: 100, filterBy: {since: $since}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
+			issues(first: 100, filterBy: {since: $since}, {until: $until}, states: [OPEN, CLOSED], after: $after, orderBy:{field: UPDATED_AT, direction: DESC}) {
                                 totalCount
 				nodes {
 					id
