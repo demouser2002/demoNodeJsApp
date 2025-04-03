@@ -178,15 +178,15 @@ if [ $issuesPushed -lt $issuesCount ]; then
     remainingIssues=$((issuesCount - issuesPushed))
     
     # Determine the number of issues to push in this iteration
-    if [ $remainingIssues -lt $batchSize ]; then
-        batchSize=$remainingIssues
+    if [ $remainingIssues -lt $issueBatchSize ]; then
+        issueBatchSize=$remainingIssues
     fi
 
     # Simulate pushing issues (replace this with actual push logic if needed)
-    echo "Pushing $batchSize issues..."
+    echo "Pushing $issueBatchSize issues..."
 
     # Update the number of issues pushed
-    issuesPushed=$((issuesPushed + batchSize))
+    issuesPushed=$((issuesPushed + issueBatchSize))
 
     # Print progress
     echo "Pushed $issuesPushed out of $issuesCount issues."
