@@ -3,8 +3,11 @@
 
 # Parse input parameters
 days=${1:-30}
+echo $days
 start_date=${2:-}
+echo $start_date
 end_date=${3:-}
+echo $end_date
 
 if [ -n "$start_date" -a -n "$end_date" ]; then
         # Use start_date and end_date
