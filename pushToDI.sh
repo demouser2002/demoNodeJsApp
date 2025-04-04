@@ -74,7 +74,7 @@ if [ "$commits" = "true" ]; then
 fi
 
 if [ "$pullrequests" = "true" ]; then
-     if  sh pushPRDetails.sh ; then
+     if  sh pushPRDetails.sh $since $until ; then
         echo "********Pull Requests Details successfully pushed to DevOps Intelligence*****"
     else
         echo "*****Error: Failed to push pull requests details to DevOps Intelligence******"
