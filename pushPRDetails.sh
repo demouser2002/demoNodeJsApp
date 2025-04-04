@@ -1,7 +1,9 @@
 #!/bin/bash
 
+since=$1
+until=$2
 after=""
-QUERY="repo:"$GITHUB_REPOSITORY" is:pr sort:updated-desc"
+QUERY="repo:"$GITHUB_REPOSITORY" is:pr updated:$since..$until sort:updated-desc"
 issuesPushed=0
 issueBatchSize=100
 hasNextPage="true"
