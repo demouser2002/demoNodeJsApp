@@ -16,4 +16,4 @@ jobs:
         
     steps:
     - uses: actions/checkout@v4
-    - run: sh pushToDI.sh start_date=2025-03-01 end_date=2025-04-01 issues=true commits=true pullrequests=true
+    - run: sh pushToDI.sh start_date=2025-02-10 end_date=2025-04-01 issues=true commits=true pullrequests=true
